@@ -7,7 +7,7 @@ from langchain_community.vectorstores import Chroma
 
 # --- Constants ---
 # This is where your downloaded text files are.
-DATA_PATH = "data/raw"
+DATA_PATH = r"C:\Users\rafi_\PycharmProjects\israeli-law-rag\data\raw"
 # This is where the vector database will be saved.
 DB_PATH = "vectorstores/db_chroma"
 

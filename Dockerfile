@@ -1,20 +1,21 @@
-# התחל מתמונת בסיס של פייתון
+# Step 1: Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
-# הגדר את ספריית העבודה בתוך הקונטיינר
+# Step 2: Set the working directory in the container
 WORKDIR /app
 
-# העתק את קובץ הדרישות והתקן את החבילות
+# Step 3: Copy the requirements file and install dependencies
 COPY requirements.txt .
+# We use --no-cache-dir to keep the image size smaller
 RUN pip install --no-cache-dir -r requirements.txt
 
-# העתק את כל קוד המקור שלנו (התיקייה src)
-COPY src/ ./src
+# Step 4: Copy the application source code and the vector store
+COPY ./src ./src
+COPY ./vectorstores ./vectorstores
 
-# --- זה השלב החשוב ---
-# העתק את מאגר הנתונים הווקטורי שבנינו באופן מקומי
-COPY vectorstores/ ./vectorstores
+# Step 5: Expose the port the app will run on
+EXPOSE 8000
 
-# הגדר את הפקודה שתרוץ כשהקונטיינר יופעל
-# (זו תהיה הפקודה שמפעילה את שרת הצ'אט שלך)
-CMD ["python", "-m", "src.app.main"]
+# Step 6: Define the command to run the application using uvicorn
+# This will start the FastAPI server
+CMD ["uvicorn", "src.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
