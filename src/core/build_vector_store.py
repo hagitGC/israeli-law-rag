@@ -1,4 +1,5 @@
 import os
+import argparse
 from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
@@ -37,7 +38,7 @@ def main(limit=None):
     # 3. Create embeddings
     print("--- Creating embeddings... (This may take a few minutes) ---")
     # We use a powerful multilingual model that works well for Hebrew
-    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+    embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-multilingual-mpnet-base-v2")
 
     # 4. Create and save the vector store
     print("--- Creating and persisting vector store... ---")
@@ -55,22 +56,22 @@ def main(limit=None):
 # we will call the main() function directly from a code cell.
 # This makes the script more interactive and easier to use for experiments.
 
-# if __name__ == "__main__":
-#     parser = argparse.ArgumentParser(description="Build a Chroma vector store from raw text documents.")
-#     parser.add_argument(
-#         "-l", "--limit", 
-#         type=int, 
-#         default=None, 
-#         help="Limit the number of documents to process (e.g., for testing)."
-#     )
-#     args = parser.parse_args()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Build a Chroma vector store from raw text documents.")
+    parser.add_argument(
+        "-l", "--limit",
+        type=int,
+        default=None,
+        help="Limit the number of documents to process (e.g., for testing)."
+    )
+    args = parser.parse_args()
     
-#     main(limit=args.limit)
+    main(limit=args.limit)
 
 # --- HOW TO RUN IN A COLAB CELL ---
 # To build the vector store for all documents, you would run this in a cell:
 # main()
 #
-# To build for a limited number of documents (e.g., 10), you would run:
-# main(limit=10)
+# # To build for a limited number of documents (e.g., 10), you would run:
+#     main(limit=20)
 
