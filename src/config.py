@@ -10,6 +10,6 @@ load_dotenv(find_dotenv())
 # Example of how to get an API key.
 # We will use this later when we connect to an LLM.
 # To use it, you would add OPENAI_API_KEY="your_key_here" to your .env file.
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 # You can add other configurations here as the project grows.
